@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Administrator Dashboard — CBC Competency Tracker</title>
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<header class="topbar">
+  <h1>CBC Competency Tracker — Administrator</h1>
+  <div class="right">
+    <span id="adminName"></span>
+    <button class="secondary" style="margin:0;" onclick="logout()">Log out</button>
+  </div>
+</header>
+
+<main>
+  <div class="card">
+    <h2>School overview</h2>
+    <div class="grid" id="overviewGrid"></div>
+  </div>
+
+  <div class="card">
+    <h2>Manage teacher accounts</h2>
+    <table id="teacherTable">
+      <thead><tr><th>Name</th><th>Email</th><th>TSC number</th><th></th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Administrator accounts</h2>
+    <div class="hint">Only an existing administrator can create another. New admins join your school.</div>
+    <table id="adminTable">
+      <thead><tr><th>Name</th><th>Email</th><th>Department</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <form id="adminForm">
+      <div class="grid">
+        <div><label>Full name</label><input type="text" id="aName" required /></div>
+        <div><label>Email</label><input type="email" id="aEmail" required /></div>
+        <div><label>Temporary password</label><input type="password" id="aPass" required minlength="6" /></div>
+        <div><label>Department</label><input type="text" id="aDept" /></div>
+      </div>
+      <button type="submit">Create administrator</button>
+      <div class="success hidden" id="adminMsg"></div>
+      <div class="error hidden" id="adminErr"></div>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>Manage learners</h2>
+    <form id="learnerForm">
+      <div class="grid">
+        <div>
+          <label>Full name</label>
+          <input type="text" id="lName" required />
+        </div>
+        <div>
+          <label>Grade / class</label>
+          <select id="lGrade"></select>
+        </div>
+      </div>
+      <button type="submit">Add learner</button>
+      <div class="success hidden" id="learnerMsg"></div>
+      <div class="error hidden" id="learnerErr"></div>
+    </form>
+    <table id="learnerTable" style="margin-top:14px;">
+      <thead><tr><th>Name</th><th>Grade</th><th></th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>School progress reports</h2>
+    <table id="reportTable">
+      <thead><tr><th>Learner</th><th>Grade</th><th>Date</th><th>Summary</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Configure curriculum parameters</h2>
+    <div class="grid">
+      <form id="strandForm">
+        <label>New strand</label>
+        <input type="text" id="strandName" required />
+        <button type="submit">Add strand</button>
+      </form>
+      <form id="subStrandForm">
+        <label>New sub-strand</label>
+        <select id="ssStrand"></select>
+        <input type="text" id="ssName" required placeholder="Sub-strand name" style="margin-top:8px;" />
+        <button type="submit">Add sub-strand</button>
+      </form>
+      <form id="indicatorForm">
+        <label>New competency indicator</label>
+        <select id="ciSubStrand"></select>
+        <input type="text" id="ciDesc" required placeholder="Indicator description" style="margin-top:8px;" />
+        <button type="submit">Add indicator</button>
+      </form>
+    </div>
+    <div class="success hidden" id="curriculumMsg" style="margin-top:10px;"></div>
+  </div>
+</main>
+
+<script src="/js/api.js"></script>
+<script src="/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CBC Competency Tracking System — Sign in</title>
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<div class="auth-split">
+  <aside class="auth-hero">
+    <div class="brand"><span class="mark"></span>CBC Competency Tracker</div>
+    <h1>See it. Record it. Even offline.</h1>
+    <p>Log what learners can do while you're in the classroom, with or without a signal. Everything syncs the moment you're back online.</p>
+    <ul class="levels">
+      <li>Exceeds<small>expectation</small></li>
+      <li>Meets<small>expectation</small></li>
+      <li>Approaches<small>expectation</small></li>
+      <li>Below<small>expectation</small></li>
+    </ul>
+  </aside>
+
+  <div class="auth-wrap">
+  <div class="card">
+    <div class="tabs">
+      <button id="tabLogin" class="active" onclick="showTab('login')">Sign in</button>
+      <button id="tabRegister" onclick="showTab('register')">Register</button>
+    </div>
+
+    <form id="loginForm">
+      <label>Email</label>
+      <input type="email" id="loginEmail" required placeholder="you@school.ac.ke" />
+      <label>Password</label>
+      <input type="password" id="loginPassword" required />
+      <button type="submit">Sign in</button>
+      <div class="error hidden" id="loginError"></div>
+    </form>
+
+    <form id="registerForm" class="hidden">
+      <label>Full name</label>
+      <input type="text" id="regName" required />
+      <label>Email</label>
+      <input type="email" id="regEmail" required />
+      <label>Password</label>
+      <input type="password" id="regPassword" required minlength="6" />
+      <label>School</label>
+      <select id="regSchool"></select>
+      <label>TSC number</label>
+        <input type="text" id="regTsc" />
+      <button type="submit">Create teacher account</button>
+      <div class="hint">Administrator accounts are created by an existing administrator.</div>
+      <div class="error hidden" id="registerError"></div>
+      <div class="success hidden" id="registerSuccess"></div>
+    </form>
+  </div>
+    <p class="learner-link">Are you a learner? <a href="/learner.html">Take an assessment</a></p>
+    <footer class="note">CBC Competency Tracking System — student project</footer>
+  </div>
+</div>
+
+<script src="/js/api.js"></script>
+<script>
+  // If already signed in, skip straight to the right dashboard.
+  const existing = API.user();
+  if (existing && API.token()) {
+    window.location.href = existing.role === "administrator" ? "/admin.html" : "/teacher.html";
+  }
+
+  function showTab(which) {
+    document.getElementById("tabLogin").classList.toggle("active", which === "login");
+    document.getElementById("tabRegister").classList.toggle("active", which === "register");
+    document.getElementById("loginForm").classList.toggle("hidden", which !== "login");
+    document.getElementById("registerForm").classList.toggle("hidden", which !== "register");
+  }
+
+  async function loadSchools() {
+    const schools = await API.get("/schools");
+    const sel = document.getElementById("regSchool");
+    sel.innerHTML = schools.map((s) => `<option value="${s.SchoolID}">${s.Name}</option>`).join("");
+  }
+  loadSchools().catch(() => {});
+
+  document.getElementById("loginForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const errEl = document.getElementById("loginError");
+    errEl.classList.add("hidden");
+    try {
+      const { token, user } = await API.post("/auth/login", {
+        email: document.getElementById("loginEmail").value,
+        password: document.getElementById("loginPassword").value,
+      });
+      API.setSession(token, user);
+      window.location.href = user.role === "administrator" ? "/admin.html" : "/teacher.html";
+    } catch (err) {
+      errEl.textContent = err.message;
+      errEl.classList.remove("hidden");
+    }
+  });
+
+  document.getElementById("registerForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const errEl = document.getElementById("registerError");
+    const okEl = document.getElementById("registerSuccess");
+    errEl.classList.add("hidden"); okEl.classList.add("hidden");
+    try {
+      await API.post("/auth/register", {
+        name: document.getElementById("regName").value,
+        email: document.getElementById("regEmail").value,
+        password: document.getElementById("regPassword").value,
+        role: "teacher",
+        schoolId: Number(document.getElementById("regSchool").value),
+        tscNumber: document.getElementById("regTsc").value,
+      });
+      okEl.textContent = "Account created — you can sign in now.";
+      okEl.classList.remove("hidden");
+      e.target.reset();
+      showTab("login");
+    } catch (err) {
+      errEl.textContent = err.message;
+      errEl.classList.remove("hidden");
+    }
+  });
+</script>
+</body>
+</html>

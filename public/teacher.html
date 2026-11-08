@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Teacher Dashboard — CBC Competency Tracker</title>
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<header class="topbar">
+  <h1>CBC Competency Tracker — Teacher</h1>
+  <div class="right">
+    <span id="netBadge" class="badge online">Online</span>
+    <span id="pendingBadge" class="badge pending hidden">0 pending</span>
+    <button id="syncBtn" class="secondary" style="margin:0;">Sync now</button>
+    <button id="simBtn" class="secondary" style="margin:0;">Simulate offline</button>
+    <span id="teacherName"></span>
+    <button class="secondary" style="margin:0;" onclick="logout()">Log out</button>
+  </div>
+</header>
+
+<main>
+  <div class="card">
+    <h2>Record competency assessment <span class="hint">(works offline — queues locally, syncs when back online)</span></h2>
+    <form id="recordForm">
+      <label>Learner</label>
+      <select id="fLearner" required></select>
+      <label>Competency indicator</label>
+      <select id="fIndicator" required></select>
+      <label>Rubric level</label>
+      <select id="fRubric">
+        <option>Exceeds</option>
+        <option selected>Meets</option>
+        <option>Approaches</option>
+        <option>Below</option>
+      </select>
+      <label>Observation notes</label>
+      <textarea id="fNotes" placeholder="What did you observe?"></textarea>
+      <button type="submit">Save record</button>
+      <div class="success hidden" id="recordSuccess"></div>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>My competency records</h2>
+    <table id="recordsTable">
+      <thead><tr><th>Learner</th><th>Indicator</th><th>Rubric</th><th>Notes</th><th>Status</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Online assessments <span class="hint">(learners answer questions on a device — needs a connection)</span></h2>
+    <div class="hint">Learners open <strong id="asmLink"></strong> and type the assessment code. The system marks it and saves the result as a competency record.</div>
+    <form id="asmForm">
+      <label>Title</label>
+      <input type="text" id="asmTitle" required placeholder="e.g. Addition and subtraction quiz" />
+      <div class="grid">
+        <div><label>Competency indicator</label><select id="asmIndicator"></select></div>
+        <div><label>Grade</label><select id="asmGrade"></select></div>
+      </div>
+      <div id="asmQuestions"></div>
+      <button type="button" class="secondary" id="asmAddQ">+ Add question</button>
+      <button type="submit">Create assessment</button>
+      <div class="success hidden" id="asmMsg"></div>
+      <div class="error hidden" id="asmErr"></div>
+    </form>
+    <table id="asmTable">
+      <thead><tr><th>Assessment</th><th>Grade</th><th>Code</th><th>Answered</th><th>Status</th><th></th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <div id="asmResults"></div>
+  </div>
+
+  <div class="card">
+    <h2>Generate progress report</h2>
+    <label>Learner</label>
+    <select id="reportLearner"></select>
+    <button id="genReportBtn">Generate report</button>
+    <div id="reportOutput" style="margin-top:12px;"></div>
+  </div>
+
+  <div class="card">
+    <h2>CBC learning resources <span class="hint">(cached list — available while offline)</span></h2>
+    <form id="uploadForm">
+      <label>Title</label>
+      <input type="text" id="resTitle" required />
+      <label>Sub-strand</label>
+      <select id="resSubStrand" required></select>
+      <label>File</label>
+      <input type="file" id="resFile" required />
+      <button type="submit">Upload resource</button>
+    </form>
+    <table id="resourceTable" style="margin-top:14px;">
+      <thead><tr><th>Title</th><th>Sub-strand</th><th>File</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</main>
+
+<script>if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js");</script>
+<script src="/js/api.js"></script>
+<script src="/js/offline.js"></script>
+<script src="/js/teacher.js"></script>
+<script src="/js/assessments.js"></script>
+</body>
+</html>

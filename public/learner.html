@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Take an assessment — CBC Competency Tracker</title>
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<header class="topbar">
+  <h1>CBC Competency Tracker — Learner</h1>
+  <div class="right"><a href="/index.html" style="color:#fff;">Teacher / admin sign in</a></div>
+</header>
+
+<main style="max-width:720px;">
+  <!-- Step 1: code -->
+  <div class="card" id="stepCode">
+    <h2>Start your assessment</h2>
+    <div class="hint">Type the code your teacher gave you.</div>
+    <form id="codeForm">
+      <label>Assessment code</label>
+      <input type="text" id="codeInput" maxlength="6" required autocomplete="off" class="code-input" placeholder="ABC123" />
+      <button type="submit">Continue</button>
+      <div class="error hidden" id="codeErr"></div>
+    </form>
+  </div>
+
+  <!-- Step 2: name -->
+  <div class="card hidden" id="stepName">
+    <h2 id="asmTitle"></h2>
+    <div class="hint" id="asmMeta"></div>
+    <form id="nameForm">
+      <label>Choose your name</label>
+      <select id="nameSelect"></select>
+      <button type="submit">Begin</button>
+      <div class="error hidden" id="nameErr"></div>
+    </form>
+  </div>
+
+  <!-- Step 3: questions -->
+  <div class="hidden" id="stepQuestions">
+    <form id="answerForm">
+      <div id="questionList"></div>
+      <div class="card">
+        <button type="submit" id="submitBtn" style="margin-top:0;">Submit answers</button>
+        <div class="error hidden" id="submitErr"></div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Step 4: result -->
+  <div class="card hidden" id="stepResult" style="text-align:center;">
+    <h2>Well done, <span id="resName"></span>!</h2>
+    <div class="score" id="resScore"></div>
+    <div><span class="chip" id="resLevel"></span></div>
+    <p class="hint" id="resMsg"></p>
+    <button type="button" id="doneBtn">Finish</button>
+  </div>
+</main>
+
+<script src="/js/learner.js"></script>
+</body>
+</html>

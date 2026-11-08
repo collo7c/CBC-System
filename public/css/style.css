@@ -1,0 +1,204 @@
+/* CBC Competency Tracker — the four rubric colours are the system's identity:
+   they appear in the logo mark, the header stripe, the stat tiles and the login hero. */
+:root {
+  --ink: #0b2f35;
+  --teal: #0f5c63;
+  --teal-dark: #0a4a50;
+  --bg: #eef3f2;
+  --card: #ffffff;
+  --border: #d9e4e2;
+  --text: #17302f;
+  --muted: #5d7371;
+
+  --exceeds: #5b4fe0;
+  --meets: #1f9d6b;
+  --approaches: #f2a900;
+  --below: #e4572e;
+
+  --ok: #17794f;
+  --warn: #a15c00;
+  --danger: #b3261e;
+  --radius: 14px;
+  --mark: conic-gradient(var(--exceeds) 0 25%, var(--meets) 0 50%, var(--approaches) 0 75%, var(--below) 0);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+h1, h2 { font-family: "Avenir Next", "Segoe UI Variable Display", "Trebuchet MS", system-ui, sans-serif; letter-spacing: -0.02em; }
+
+/* ---------- Top bar ---------- */
+header.topbar {
+  background: var(--ink);
+  color: #fff;
+  padding: 14px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  border-bottom: 5px solid transparent;
+  border-image: linear-gradient(90deg, var(--exceeds) 0 25%, var(--meets) 0 50%, var(--approaches) 0 75%, var(--below) 0) 1;
+}
+header.topbar h1 { font-size: 19px; margin: 0; font-weight: 800; display: flex; align-items: center; gap: 12px; }
+header.topbar h1::before { content: ""; width: 24px; height: 24px; border-radius: 7px; background: var(--mark); flex: none; }
+header.topbar .right { display: flex; align-items: center; gap: 12px; font-size: 14px; flex-wrap: wrap; }
+header.topbar button.secondary { background: rgba(255,255,255,.12); color: #fff; }
+header.topbar button.secondary:hover { background: rgba(255,255,255,.22); }
+
+.badge { padding: 4px 11px; border-radius: 999px; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; }
+.badge::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.badge.online { background: #d5f5e6; color: var(--ok); }
+.badge.offline { background: #ffe0d6; color: var(--danger); }
+.badge.pending { background: #ffefc2; color: var(--warn); }
+
+/* ---------- Layout & cards ---------- */
+main { max-width: 1000px; margin: 28px auto; padding: 0 18px 48px; }
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 22px;
+  box-shadow: 0 1px 0 rgba(11,47,53,.04);
+}
+.card h2 { margin: 0 0 6px; font-size: 18px; font-weight: 800; color: var(--ink); }
+.card h2 .hint { font-weight: 400; letter-spacing: 0; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; }
+
+.stat { border-radius: 12px; padding: 16px 18px; text-align: left; border: 0; background: #e6efed; border-left: 6px solid var(--teal); }
+.stat:nth-child(4n+1) { background: #ebe9ff; border-left-color: var(--exceeds); }
+.stat:nth-child(4n+2) { background: #dff5ea; border-left-color: var(--meets); }
+.stat:nth-child(4n+3) { background: #fff1cc; border-left-color: var(--approaches); }
+.stat:nth-child(4n+4) { background: #ffe4db; border-left-color: var(--below); }
+.stat .num { font-size: 34px; font-weight: 800; line-height: 1.1; color: var(--ink); font-family: "Avenir Next", "Trebuchet MS", system-ui, sans-serif; }
+.stat .label { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+/* ---------- Forms & buttons ---------- */
+label { display: block; font-size: 13px; font-weight: 600; margin: 14px 0 5px; color: var(--text); }
+input, select, textarea, button { font-family: inherit; font-size: 14px; }
+input[type=text], input[type=email], input[type=password], select, textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  background: #fbfdfc;
+  color: var(--text);
+}
+textarea { resize: vertical; min-height: 70px; }
+input:focus, select:focus, textarea:focus, button:focus-visible {
+  outline: 3px solid rgba(31,157,107,.35);
+  outline-offset: 1px;
+  border-color: var(--meets);
+}
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-weight: 700;
+  background: var(--teal);
+  color: #fff;
+  margin-top: 14px;
+  transition: background .15s, transform .1s;
+}
+button:hover { background: var(--teal-dark); }
+button:active { transform: translateY(1px); }
+button.secondary { background: #e2ebe9; color: var(--ink); }
+button.secondary:hover { background: #d3e0dd; }
+button.danger { background: #ffe4db; color: var(--danger); }
+button.danger:hover { background: #ffd2c4; }
+button:disabled { opacity: .55; cursor: not-allowed; }
+
+/* ---------- Tables ---------- */
+table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
+th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--border); }
+th { color: var(--muted); font-weight: 600; font-size: 13px; }
+tbody tr:hover { background: #f4f9f8; }
+.tag { padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; }
+.tag.synced { background: #d5f5e6; color: var(--ok); }
+.tag.pending { background: #ffefc2; color: var(--warn); }
+
+.hint { font-size: 13px; color: var(--muted); margin-top: 6px; }
+.error { color: var(--danger); font-size: 13px; font-weight: 600; margin-top: 10px; }
+.success { color: var(--ok); font-size: 13px; font-weight: 600; margin-top: 10px; }
+.hidden { display: none !important; }
+footer.note { text-align: center; color: var(--muted); font-size: 12px; margin: 22px 0; }
+
+/* ---------- Sign-in page ---------- */
+.auth-split { min-height: 100vh; display: grid; grid-template-columns: minmax(300px, 5fr) 6fr; }
+.auth-hero {
+  background: var(--ink);
+  color: #fff;
+  padding: 56px 52px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 22px;
+}
+.auth-hero .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 18px; }
+.auth-hero .mark { width: 30px; height: 30px; border-radius: 9px; background: var(--mark); }
+.auth-hero h1 { font-size: clamp(32px, 4.2vw, 50px); line-height: 1.05; margin: 0; font-weight: 800; max-width: 12em; }
+.auth-hero p { margin: 0; max-width: 30em; color: #b9d0cd; font-size: 16px; }
+.levels { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 10px; max-width: 320px; }
+.levels li {
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-weight: 700;
+  color: #fff;
+  animation: rise .5s ease-out backwards;
+}
+.levels li small { font-weight: 500; opacity: .9; margin-left: 8px; }
+.levels li:nth-child(1) { background: var(--exceeds); animation-delay: .05s; }
+.levels li:nth-child(2) { background: var(--meets); animation-delay: .15s; margin-left: 18px; }
+.levels li:nth-child(3) { background: #c98a00; animation-delay: .25s; margin-left: 36px; }
+.levels li:nth-child(4) { background: var(--below); animation-delay: .35s; margin-left: 54px; }
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } }
+
+.auth-wrap { width: 100%; max-width: 440px; margin: auto; padding: 40px 22px; }
+.tabs { display: flex; gap: 6px; margin-bottom: 8px; background: #e2ebe9; padding: 5px; border-radius: 12px; }
+.tabs button { flex: 1; background: transparent; color: var(--muted); margin: 0; }
+.tabs button:hover { background: rgba(255,255,255,.5); }
+.tabs button.active { background: #fff; color: var(--ink); box-shadow: 0 1px 3px rgba(11,47,53,.15); }
+
+@media (max-width: 800px) {
+  .auth-split { grid-template-columns: 1fr; }
+  .auth-hero { padding: 32px 24px; }
+  .levels { display: none; }
+  header.topbar { padding: 12px 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .levels li { animation: none; }
+  button { transition: none; }
+}
+
+/* ---------- Online assessments ---------- */
+.chip { display: inline-block; padding: 5px 16px; border-radius: 999px; font-weight: 800; font-size: 14px; color: #fff; background: var(--teal); }
+.chip.exceeds { background: var(--exceeds); }
+.chip.meets { background: var(--meets); }
+.chip.approaches { background: #c98a00; }
+.chip.below { background: var(--below); }
+.code-chip { font-family: ui-monospace, Consolas, monospace; font-weight: 800; letter-spacing: .12em; background: var(--ink); color: #fff; padding: 4px 10px; border-radius: 8px; }
+.code-input { font-family: ui-monospace, Consolas, monospace; font-size: 26px; letter-spacing: .3em; text-transform: uppercase; text-align: center; }
+.asm-actions { white-space: nowrap; }
+.asm-actions button { padding: 6px 12px; margin-left: 4px !important; }
+.learner-link { text-align: center; font-size: 14px; color: var(--muted); }
+.learner-link a { color: var(--teal); font-weight: 700; }
+
+.q-block { border: 1.5px dashed var(--border); border-radius: 12px; padding: 14px; margin-top: 14px; background: #fafdfc; }
+.q-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.q-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px; margin-top: 8px; }
+.q-opt { display: flex; align-items: center; gap: 8px; }
+.opt-letter { flex: none; width: 28px; height: 28px; border-radius: 8px; background: var(--ink); color: #fff; font-weight: 800; display: inline-grid; place-items: center; font-size: 13px; }
+
+.q-card .q-text { font-size: 17px; font-weight: 700; color: var(--ink); margin-bottom: 12px; display: flex; gap: 10px; }
+.q-no { flex: none; color: var(--teal); }
+label.opt { display: flex; align-items: center; gap: 12px; margin: 8px 0 0; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 12px; cursor: pointer; font-weight: 500; font-size: 15px; }
+label.opt:hover { background: #f1f8f6; }
+label.opt:has(input:checked) { border-color: var(--meets); background: #e4f6ee; }
+label.opt input { width: 18px; height: 18px; accent-color: var(--meets); }
+.score { font-size: 56px; font-weight: 800; color: var(--ink); line-height: 1.1; margin: 10px 0; font-family: "Avenir Next", "Trebuchet MS", system-ui, sans-serif; }
