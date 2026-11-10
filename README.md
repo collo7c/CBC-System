@@ -1,20 +1,12 @@
 # CBC Competency Tracking System
 
-A full-stack reference implementation of the system modelled in `Design_Diagrams_Corrected.docx`
-(sequence, ER, use-case, class diagrams and database schema). Teachers record CBC (Competency
-Based Curriculum) rubric assessments for learners — online or offline — upload learning resources,
-and generate progress reports. Administrators manage teacher accounts, view school-wide reports,
-and configure the curriculum (strands, sub-strands, competency indicators).
-
-This document explains **what was built, how it maps back to your diagrams, and how to run it.**
-
 ---
 
 ## 1. Tech stack
 
 | Layer     | Choice | Why |
 |-----------|--------|-----|
-| Backend   | Node.js + Express | Simple, well documented, easy for a lecturer to read |
+| Backend   | Node.js + Express | Simple, well documented,|
 | Database  | SQLite via Node's built-in `node:sqlite` module | Zero setup, zero native compilation — the whole DB is one file, matches the schema diagram exactly. Requires **Node.js 22.5+** (uses a module built into Node itself, so there's nothing for npm to compile — no Visual Studio / build tools needed on Windows) |
 | Auth      | JWT (`jsonwebtoken`) + `bcryptjs` password hashing | Stateless sessions, standard practice |
 | Frontend  | Plain HTML/CSS/JavaScript (no framework, no build step) | Runs by just opening the browser — nothing to compile |
