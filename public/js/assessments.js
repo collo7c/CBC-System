@@ -112,7 +112,8 @@
 
   function asmInit() {
     $("asmGrade").innerHTML = ASM_GRADES.map((g) => `<option>${g}</option>`).join("");
-    $("asmLink").textContent = location.origin + "/learner.html";
+    const link = $("asmLink"); // optional: the sentence that shows the learner address may have been removed
+    if (link) link.textContent = location.origin + "/learner.html";
     asmAddQuestion();
     asmLoadIndicators();
     asmLoadList();
