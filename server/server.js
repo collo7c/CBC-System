@@ -22,6 +22,7 @@ app.use("/api/reports", require("./routes/reports"));
 app.use("/api/resources", require("./routes/resources"));
 app.use("/api/admin", require("./routes/admin"));
 app.use("/api/assessments", require("./routes/assessments")); // teacher: create / manage / results
+app.use("/api/analytics", require("./routes/analytics")); // rule-based insights + chart data
 app.use("/api/assess", require("./routes/assess"));           // learner: open by code, answer, submit
 
 app.get("/api/health", (req, res) => res.json({ status: "ok" }));
