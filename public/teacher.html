@@ -72,6 +72,30 @@
   </div>
 
   <div class="card">
+    <h2>Learner insights <span class="hint">(needs a connection)</span></h2>
+    <div class="hint">Rule-based analytics from the competency records: who may need extra support, and how each learner is progressing.</div>
+    <details class="rules">
+      <summary>How are learners flagged?</summary>
+      <ul>
+        <li><strong>Repeated "Below":</strong> two or more "Below" results in their last five records.</li>
+        <li><strong>Declining:</strong> their last three results average at least one level lower than the three before.</li>
+        <li><strong>Not assessed recently:</strong> no record for more than 30 days (or none yet).</li>
+      </ul>
+    </details>
+    <h3 class="sub">Learners who may need support</h3>
+    <div id="supportList"><div class="hint">Loading…</div></div>
+    <h3 class="sub" id="insCharts">Learner progress</h3>
+    <label>Choose a learner</label>
+    <select id="insLearner"></select>
+    <div id="insFlags" style="margin-top:10px;"></div>
+    <div class="ins-grid">
+      <div><h4>Progress over time</h4><div id="chLine"></div></div>
+      <div><h4>Results by level</h4><div id="chDist"></div></div>
+      <div><h4>Average level by strand</h4><div id="chStrand"></div></div>
+    </div>
+  </div>
+
+  <div class="card">
     <h2>Generate progress report</h2>
     <label>Learner</label>
     <select id="reportLearner"></select>
@@ -102,5 +126,7 @@
 <script src="/js/offline.js"></script>
 <script src="/js/teacher.js"></script>
 <script src="/js/assessments.js"></script>
+<script src="/js/charts.js"></script>
+<script src="/js/insights.js"></script>
 </body>
 </html>
