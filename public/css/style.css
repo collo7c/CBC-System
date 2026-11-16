@@ -202,3 +202,26 @@ label.opt:hover { background: #f1f8f6; }
 label.opt:has(input:checked) { border-color: var(--meets); background: #e4f6ee; }
 label.opt input { width: 18px; height: 18px; accent-color: var(--meets); }
 .score { font-size: 56px; font-weight: 800; color: var(--ink); line-height: 1.1; margin: 10px 0; font-family: "Avenir Next", "Trebuchet MS", system-ui, sans-serif; }
+
+/* ---------- Learner insights & charts ---------- */
+h3.sub { font-size: 15px; margin: 22px 0 6px; color: var(--ink); }
+h4 { margin: 14px 0 4px; font-size: 14px; color: var(--muted); font-weight: 700; }
+.ins-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 6px 24px; }
+.ins-grid > div:first-child { grid-column: 1 / -1; }
+svg.chart { width: 100%; height: auto; display: block; }
+.ch-text { fill: var(--muted); font-size: 12px; font-family: inherit; }
+.ch-num { fill: var(--ink); font-size: 13px; font-weight: 700; font-family: inherit; }
+.ch-white { fill: #fff; font-size: 12px; font-weight: 700; font-family: inherit; }
+.ch-grid { stroke: var(--border); stroke-width: 1; }
+.ch-line { fill: none; stroke: var(--teal); stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; opacity: .55; }
+.ch-track { fill: #e6efed; }
+.reason { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; margin: 2px 4px 2px 0; }
+.reason.high { background: #ffe4db; color: var(--danger); }
+.reason.info { background: #ffefc2; color: var(--warn); }
+.reason.ok { background: #d5f5e6; color: var(--ok); }
+.dot { display: inline-block; width: 14px; height: 14px; border-radius: 50%; margin-right: 4px; vertical-align: middle; background: var(--border); }
+.dot.exceeds { background: var(--exceeds); } .dot.meets { background: var(--meets); }
+.dot.approaches { background: var(--approaches); } .dot.below { background: var(--below); }
+details.rules { margin-top: 8px; font-size: 13px; color: var(--muted); }
+details.rules summary { cursor: pointer; font-weight: 700; color: var(--teal); }
+details.rules ul { margin: 6px 0 0; padding-left: 20px; }
