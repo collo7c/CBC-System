@@ -130,6 +130,7 @@ document.getElementById("recordForm").addEventListener("submit", async (e) => {
   e.target.reset();
   updatePendingBadge();
   await loadRecords();
+  window.dispatchEvent(new Event("cbc:records-changed"));
   setTimeout(() => successEl.classList.add("hidden"), 4000);
 });
 
@@ -215,6 +216,7 @@ async function updateNetBadge() {
     try { await syncPendingRecords(); } catch (e) { /* try again on the next check */ }
     updatePendingBadge();
     loadRecords();
+    window.dispatchEvent(new Event("cbc:records-changed"));
   }
   lastOnline = online;
 }
